@@ -213,7 +213,8 @@ export default function Dashboard() {
           label="Followers"
           value={fmtNumber(totals.followers)}
           hint="Latest count per account"
-          delta={totals.weeklyFollowerChange ? `${totals.weeklyFollowerChange > 0 ? '+' : ''}${fmtNumber(totals.weeklyFollowerChange)} this week` : null}
+          delta={totals.weeklyFollowerChange ? Number(totals.weeklyFollowerChange) : null}
+          deltaSuffix=" this week"
         />
         <Stat label="Engagement rate" value={fmtPercent(totals.engagementRate)} hint="Likes + comments + shares ÷ views" />
         <Stat

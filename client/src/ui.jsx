@@ -97,15 +97,15 @@ export function Badge({ children, tone = 'neutral', dot = false }) {
   );
 }
 
-export function Stat({ label, value, hint, delta, accent = 'violet' }) {
+export function Stat({ label, value, hint, delta, deltaSuffix = '', accent = 'violet' }) {
   return (
     <div className={`stat stat-${accent}`}>
       <span className="stat-label">{label}</span>
       <span className="stat-value">{value}</span>
       <span className="stat-foot">
-        {delta !== undefined && delta !== null ? (
+        {delta !== undefined && delta !== null && !Number.isNaN(Number(delta)) ? (
           <span className={Number(delta) >= 0 ? 'delta-up' : 'delta-down'}>
-            {Number(delta) >= 0 ? '▲' : '▼'} {Math.abs(Number(delta)).toLocaleString()}
+            {Number(delta) >= 0 ? '▲' : '▼'} {Math.abs(Number(delta)).toLocaleString()}{deltaSuffix}
           </span>
         ) : null}
         {hint ? <span className="stat-hint">{hint}</span> : null}
