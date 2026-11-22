@@ -11,7 +11,7 @@
     "build": "npm --prefix client install --no-audit --no-fund && npm --prefix client run build",
     "start": "node server/index.js",
     "dev": "node server/index.js",
-    "test": "node tests/smoke.test.mjs"
+    "test": "node scripts/analysis-test.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
