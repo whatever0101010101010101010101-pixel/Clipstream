@@ -136,7 +136,7 @@ export default function Dashboard() {
 
   async function load() {
     try {
-      const data = await api('/insights/dashboard');
+      const data = await api('/dashboard');
       setState({ loading: false, error: '', data });
     } catch (err) {
       setState({ loading: false, error: err.message, data: null });
