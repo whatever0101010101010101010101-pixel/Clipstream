@@ -14,8 +14,8 @@
     "test": "node tests/smoke.test.mjs"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.19.2",
+    "bcryptjs": "^3.0.3",
+    "express": "^5.3.0",
     "multer": "^2.0.1",
     "sql.js": "^1.13.0"
   }
