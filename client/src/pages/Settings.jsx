@@ -118,7 +118,7 @@ export default function Settings() {
         <Card title="Account" subtitle={`Member since ${fmtDate(user?.createdAt)}`}>
           <div className="stack" style={{ gap: 10, fontSize: 13.5 }}>
             <div className="row-between"><span style={{ color: 'var(--muted)' }}>Current plan</span><strong>{plan?.name || 'Free'}</strong></div>
-            <div className="row-between"><span style={{ color: 'var(--muted)' }}>Analyses this month</span><strong>{usage?.analyses ?? 0} / {usage?.analysisLimit ?? '∞'}</strong></div>
+            <div className="row-between"><span style={{ color: 'var(--muted)' }}>Analyses this month</span><strong>{usage?.used ?? 0} / {usage?.limit ?? '∞'}</strong></div>
             <div className="row-between"><span style={{ color: 'var(--muted)' }}>Competitor slots</span><strong>{plan?.competitorSlots ?? 0}</strong></div>
             <div className="row-between"><span style={{ color: 'var(--muted)' }}>AI assistant</span><strong>{plan?.assistant ? 'Included' : 'Pro and Elite only'}</strong></div>
           </div>

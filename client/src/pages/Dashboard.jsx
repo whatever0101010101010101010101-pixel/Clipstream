@@ -161,8 +161,8 @@ export default function Dashboard() {
   const data = state.data;
   const totals = data?.totals || {};
   const series = useMemo(() => (data?.series || []).filter((p) => p.views > 0 || p.followers > 0), [data]);
-  const used = usage?.analyses ?? totals.analyses ?? 0;
-  const limit = usage?.analysisLimit ?? plan?.analysesPerMonth ?? 0;
+  const used = usage?.used ?? totals.analyses ?? 0;
+  const limit = usage?.limit ?? plan?.analysesPerMonth ?? 0;
 
   if (state.loading) {
     return (
