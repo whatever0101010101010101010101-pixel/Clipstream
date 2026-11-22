@@ -1,0 +1,22 @@
+{
+  "name": "influencer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "INFLUENCER - AI social media growth and video analysis platform",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm --prefix client install --no-audit --no-fund && npm --prefix client run build",
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "test": "node tests/smoke.test.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "multer": "^2.0.1",
+    "sql.js": "^1.13.0"
+  }
+}
