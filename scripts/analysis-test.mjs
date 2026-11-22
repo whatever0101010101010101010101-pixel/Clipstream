@@ -32,11 +32,17 @@ const workDir = path.join(dataDir, 'uploads');
 fs.mkdirSync(workDir, { recursive: true });
 const sample = path.join(workDir, 'sample.mp4');
 
-console.log('1. Generating a 9:16 test video with ffmpeg…');
+console.log('1. Generating a 9:16 test video with real scene changes…');
+// Three visually distinct 3s segments so the scene detector has actual cuts to find.
 execFileSync('ffmpeg', [
   '-hide_banner', '-loglevel', 'error', '-y',
-  '-f', 'lavfi', '-i', 'testsrc=size=1080x1920:rate=30:duration=9',
+  '-f', 'lavfi', '-i', 'testsrc=size=1080x1920:rate=30:duration=3',
+  '-f', 'lavfi', '-i', 'smptebars=size=1080x1920:rate=30:duration=3',
+  '-f', 'lavfi', '-i', 'rgbtestsrc=size=1080x1920:rate=30:duration=3',
   '-f', 'lavfi', '-i', 'sine=frequency=440:duration=9',
+  '-filter_complex',
+  '[0:v]format=yuv420p[a];[1:v]format=yuv420p[b];[2:v]format=yuv420p[c];[a][b][c]concat=n=3:v=1:a=0[v]',
+  '-map', '[v]', '-map', '3:a',
   '-c:v', 'libx264', '-preset', 'ultrafast', '-pix_fmt', 'yuv420p',
   '-c:a', 'aac', '-shortest', sample,
 ]);

@@ -486,7 +486,8 @@ export function buildAnalysis({ probe, audio, scenes, frames, context = {}, plat
           Object.entries(scores)
             .filter(([k]) => k !== 'overall')
             .sort((a, b) => a[1] - b[1])[0][0]
-        }.`);
+        }.`) +
+    ' These scores are an AI estimate built from measured signals, not a guarantee of going viral.';
 
   return { scores, metrics, findings, summary, verdict, disclaimer: SCORE_DISCLAIMER };
 }
