@@ -200,8 +200,8 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="page-actions">
-          <Link to="/studio" className="btn btn-primary">Upload a video</Link>
-          <Link to="/accounts" className="btn btn-outline">Connect accounts</Link>
+          <Link to="/app/studio" className="btn btn-primary">Upload a video</Link>
+          <Link to="/app/accounts" className="btn btn-outline">Connect accounts</Link>
         </div>
       </div>
 
@@ -238,7 +238,7 @@ export default function Dashboard() {
             action={
               <div className="row" style={{ gap: 8, justifyContent: 'center' }}>
                 <Button variant="primary" loading={demoBusy} onClick={() => toggleDemo('add')}>Load demo data</Button>
-                <Link to="/accounts" className="btn btn-outline">Connect account</Link>
+                <Link to="/app/accounts" className="btn btn-outline">Connect account</Link>
               </div>
             }
           />
@@ -255,7 +255,7 @@ export default function Dashboard() {
         <Card
           title="Platform comparison"
           subtitle="Views, engagement and average score by platform."
-          action={<Link to="/accounts" className="card-link">Manage</Link>}
+          action={<Link to="/app/accounts" className="card-link">Manage</Link>}
         >
           {data?.platforms?.length ? (
             <PlatformBars platforms={data.platforms} />
@@ -275,7 +275,7 @@ export default function Dashboard() {
                   hint={area.hint}
                 />
               ))}
-              <Link to="/studio" className="btn btn-outline btn-block">Analyse another video</Link>
+              <Link to="/app/studio" className="btn btn-outline btn-block">Analyse another video</Link>
             </div>
           ) : (
             <EmptyState icon="🎯" title="Nothing measured yet" text="Upload a video and the weakest areas will show up here with fixes." />
@@ -287,12 +287,12 @@ export default function Dashboard() {
         <Card
           title="Best performing videos"
           subtitle="Ranked by content score, then reported views."
-          action={<Link to="/studio" className="card-link">Studio</Link>}
+          action={<Link to="/app/studio" className="card-link">Studio</Link>}
         >
           {data?.bestVideos?.length ? (
             <div className="stack" style={{ gap: 12 }}>
               {data.bestVideos.map((video) => (
-                <Link key={video.id} to={`/videos/${video.id}`} className="history-item">
+                <Link key={video.id} to={`/app/studio/${video.id}`} className="history-item">
                   <div className="video-thumb" style={{ width: 56, height: 56, borderRadius: 12 }}>
                     {video.thumbUrl ? <img src={video.thumbUrl} alt="" /> : <span>{video.overall}</span>}
                   </div>
@@ -317,11 +317,11 @@ export default function Dashboard() {
           )}
         </Card>
 
-        <Card title="Recent analyses" subtitle="The latest reports you generated." action={<Link to="/videos" className="card-link">All videos</Link>}>
+        <Card title="Recent analyses" subtitle="The latest reports you generated." action={<Link to="/app/studio" className="card-link">All videos</Link>}>
           {data?.recentAnalyses?.length ? (
             <div className="stack" style={{ gap: 12 }}>
               {data.recentAnalyses.map((item) => (
-                <Link key={item.id} to={`/videos/${item.videoId}`} className="history-item">
+                <Link key={item.id} to={`/app/studio/${item.videoId}`} className="history-item">
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <strong style={{ display: 'block', fontSize: 13.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {item.title}
@@ -340,7 +340,7 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <Card title="Monthly analysis allowance" subtitle={`${plan?.name || 'Free'} plan`} action={<Link to="/billing" className="card-link">Change plan</Link>}>
+      <Card title="Monthly analysis allowance" subtitle={`${plan?.name || 'Free'} plan`} action={<Link to="/app/billing" className="card-link">Change plan</Link>}>
         <div className="row-between" style={{ marginBottom: 10, fontSize: 13 }}>
           <span style={{ color: 'var(--muted)' }}>{used} of {limit || '∞'} analyses used this month</span>
           <Badge tone={limit && used >= limit ? 'weak' : 'strong'}>{limit ? Math.max(0, limit - used) : '∞'} left</Badge>
