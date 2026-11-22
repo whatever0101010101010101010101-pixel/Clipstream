@@ -7,12 +7,12 @@ RUN npm run build
 
 FROM node:26-alpine
 RUN echo "os-refresh 2026-11-22" && apk upgrade --no-cache \
-  && apk add --no-cache ffmpeg libcap \
-  && setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
+  && apk add --no-cache ffmpeg
 
 WORKDIR /app
 ENV NODE_ENV=production \
-    PORT=80 \
+    PORT=3000 \
+    HOST=0.0.0.0 \
     DATA_DIR=/app/data
 
 COPY package.json package-lock.json* ./
@@ -22,5 +22,5 @@ COPY --from=client-build /app/client/dist ./client/dist
 RUN mkdir -p /app/data/uploads && chown -R node:node /app/data
 
 USER node
-EXPOSE 80
+EXPOSE 3000
 CMD ["node", "server/index.js"]
