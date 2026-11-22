@@ -134,7 +134,19 @@ CREATE TABLE IF NOT EXISTS assistant_items (
   created_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS video_exports (
+  id TEXT PRIMARY KEY,
+  video_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  platform TEXT NOT NULL,
+  label TEXT,
+  filename TEXT NOT NULL,
+  duration REAL NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_videos_user ON videos(user_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_exports_video ON video_exports(video_id);
 CREATE INDEX IF NOT EXISTS idx_analyses_user ON analyses(user_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_metrics_user ON metrics(user_id, date);
 CREATE INDEX IF NOT EXISTS idx_accounts_user ON accounts(user_id);
