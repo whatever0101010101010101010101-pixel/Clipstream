@@ -27,7 +27,8 @@ const check = (name, condition, detail = '') => {
   }
 };
 
-const workDir = path.join(dataDir, 'src');
+// The pipeline reads files from UPLOAD_DIR, so the fixture must live there.
+const workDir = path.join(dataDir, 'uploads');
 fs.mkdirSync(workDir, { recursive: true });
 const sample = path.join(workDir, 'sample.mp4');
 
