@@ -163,6 +163,18 @@ export async function makeThumbnail(file, outPath, at = 1) {
   return outPath;
 }
 
+export async function makeExportClip(file, outPath, { start = 0, duration = 30, vertical = true } = {}) {
+  const filter = vertical
+    ? 'scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280'
+    : 'scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720';
+  await exec(FFMPEG, [
+    '-hide_banner', '-nostats', '-y', '-ss', String(Math.max(0, start)), '-t', String(duration),
+    '-i', file, '-vf', filter, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '25',
+    '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', outPath,
+  ], 110000);
+  return outPath;
+}
+
 export async function makeClip(file, outPath, start, duration) {
   await exec(FFMPEG, [
     '-hide_banner', '-nostats', '-y', '-ss', String(Math.max(0, start)), '-t', String(duration),
