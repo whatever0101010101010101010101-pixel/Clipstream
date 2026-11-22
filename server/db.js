@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS analyses (
   scores_json TEXT NOT NULL,
   metrics_json TEXT NOT NULL,
   findings_json TEXT NOT NULL,
+  improvements_json TEXT,
   summary TEXT,
   source TEXT NOT NULL DEFAULT 'media-heuristics',
   created_at TEXT NOT NULL
@@ -183,6 +184,18 @@ export async function initDb() {
   const existing = fs.existsSync(DB_FILE) ? fs.readFileSync(DB_FILE) : null;
   db = existing && existing.length ? new SQL.Database(existing) : new SQL.Database();
   db.exec(SCHEMA);
+  // Lightweight migrations for databases created by earlier builds.
+  for (const statement of [
+    'ALTER TABLE analyses ADD COLUMN improvements_json TEXT',
+    'ALTER TABLE accounts ADD COLUMN verified INTEGER NOT NULL DEFAULT 0',
+    'ALTER TABLE accounts ADD COLUMN last_synced_at TEXT',
+  ]) {
+    try {
+      db.exec(statement);
+    } catch {
+      /* column already exists */
+    }
+  }
   persist();
   return db;
 }
